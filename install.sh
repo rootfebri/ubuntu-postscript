@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
 pkg=(
+    screen
     php
     jq
     zsh
@@ -76,9 +77,10 @@ for pkg in "${pkg[@]}"; do
     sudo apt -qq -y install $pkg
 done
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+chsh -s $(which zsh)
 
-read -p 'Add alias into .zshrc? y/n' yn
-if [[ $yn == [Yy]* ]]; then
+read -p 'Add alias into .zshrc? Y/n' yn
+if [[ $yn == [Yy]* || -z $yn ]]; then
     echo "alias vimrc='vim ~/.zshrc'" >>~/.zshrc
     echo "alias loadrc='source ~/.zshrc'" >>~/.zshrc
     echo "alias app='sudo apt -y'" >>~/.zshrc
