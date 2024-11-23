@@ -6,7 +6,6 @@ ZSHRC_FILE="$HOME/.zshrc"
 # List of packages to install
 packages=(
   screen
-  php
   jq
   zsh
   git
