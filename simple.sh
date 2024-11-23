@@ -6,6 +6,7 @@ ZSHRC_FILE="$HOME/.zshrc"
 # List of packages to install
 packages=(
   screen
+  php
   jq
   zsh
   git
@@ -64,7 +65,7 @@ fi
 if grep -q "^plugins=(git)$" "$ZSHRC_FILE"; then
   echo "Updating plugins in $ZSHRC_FILE..."
   sed -i.bak '/^plugins=(git)$/c\
-  '"$USE_PLUGINS" "$ZSHRC_FILE"
+'"$USE_PLUGINS" "$ZSHRC_FILE"
 else
   echo "plugins=(git) not found in $ZSHRC_FILE. Adding plugins configuration..."
   echo "$USE_PLUGINS" >> "$ZSHRC_FILE"
