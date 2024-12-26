@@ -10,11 +10,8 @@ sudo apt -y update && sudo apt -y upgrade
 
 for p in "${pkg[@]}"; do
   printf 'Installing %s...' "$p"
-  if sudo apt -y install  "$p" > /dev/null 2>&1; then
-    printf "Done\n"
-  else
-    printf "Failed\n"
-  fi
+  sudo apt -y install  "$p" > /dev/null 2>&1
+  printf "Done\n"
 done
 
 echo "Installing Oh My Zsh..."
