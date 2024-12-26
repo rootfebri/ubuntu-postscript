@@ -6,38 +6,33 @@ USE_PLUGINS="plugins=(aliases zsh-autosuggestions git bundler macos rake rbenv r
 # Update and upgrade system
 echo "Updating and upgrading system..."
 sudo apt -y update && sudo apt -y upgrade
-# Install Oh My Zsh
+sudo apt -y install "$pkg"  > /dev/null 2>&1
+
 echo "Installing Oh My Zsh..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # Install zsh-autosuggestions plugin
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
-echo "Cloning zsh-autosuggestions..."
-git clone https://github.com/zsh-users/zsh-autosuggestions.git "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+# Install Oh My Zsh
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
+  echo "Cloning zsh-autosuggestions..."
+  git clone https://github.com/zsh-users/zsh-autosuggestions.git "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+fi
 
 # Prompt user to add aliases to .zshrc
-read -rp "Add aliases to .zshrc? (Y/n): " yn
-if [[ "$yn" =~ ^[Yy]*$ || -z "$yn" ]]; then
-  echo "Adding aliases to $ZSHRC_FILE..."
-  {
-    echo ""
-    echo "alias vimrc='vim ~/.zshrc'"
-    echo "alias loadrc='source ~/.zshrc'"
-    echo "alias app='sudo apt -y'"
-    echo "alias arm='sudo apt -y autoremove'"
-  } >> "$ZSHRC_FILE"
-else
-  echo "Skipped adding aliases."
-fi
+echo "Adding aliases to $ZSHRC_FILE..."
+{
+  echo ""
+  echo "alias vimrc='vim ~/.zshrc'"
+  echo "alias loadrc='source ~/.zshrc'"
+  echo "alias app='sudo apt -y'"
+  echo "alias arm='sudo apt -y autoremove'"
+} >> "$ZSHRC_FILE"
 
 # Replace plugins line in .zshrc
 if grep -q "^plugins=(git)$" "$ZSHRC_FILE"; then
   echo "Updating plugins in $ZSHRC_FILE..."
-  sed -i.bak '/^plugins=(git)$/c\
-'"$USE_PLUGINS" "$ZSHRC_FILE"
-else
-  echo "plugins=(git) not found in $ZSHRC_FILE. Adding plugins configuration..."
-  echo "$USE_PLUGINS" >> "$ZSHRC_FILE"
+  sed -i.bak '/^plugins=(git)$/c'"$USE_PLUGINS" "$ZSHRC_FILE"
 fi
 
 # Change default shell to zsh
