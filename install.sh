@@ -2,6 +2,7 @@
 
 pkg="screen php jq zsh git gh redis-server php-predis php-dev php-pear php-common php-cli php-json php-xml php-zip php-curl php-bz2 php-fpm php-bcmath php-calendar php-ctype php-dba php-dom php-exif php-ffi php-fileinfo php-ftp php-gd php-gmp php-iconv php-igbinary php-imagick php-imap php-intl php-ldap php-mbstring php-mysqli php-opcache  php-pdo php-pgsql php-phar php-posix php-readline php-redis php-shmop php-simplexml php-soap php-sockets  php-sqlite3 php-sysvmsg php-sysvsem php-sysvshm php-tokenizer php-xml php-xmlreader php-xmlwriter php-xsl php-zip php-sqlite3 php-all-dev"
 USE_PLUGINS="plugins=(aliases zsh-autosuggestions git bundler macos rake rbenv ruby)"
+ZSHRC_FILE="$HOME/.zshrc"
 
 # Update and upgrade system
 echo "Updating and upgrading system..."
