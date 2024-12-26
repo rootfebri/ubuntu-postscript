@@ -1,13 +1,21 @@
 #!/usr/bin/bash
 
-pkg="screen php jq zsh git gh redis-server php-predis php-dev php-pear php-common php-cli php-json php-xml php-zip php-curl php-bz2 php-fpm php-bcmath php-calendar php-ctype php-dba php-dom php-exif php-ffi php-fileinfo php-ftp php-gd php-gmp php-iconv php-igbinary php-imagick php-imap php-intl php-ldap php-mbstring php-mysqli php-opcache  php-pdo php-pgsql php-phar php-posix php-readline php-redis php-shmop php-simplexml php-soap php-sockets  php-sqlite3 php-sysvmsg php-sysvsem php-sysvshm php-tokenizer php-xml php-xmlreader php-xmlwriter php-xsl php-zip php-sqlite3 php-all-dev"
+pkg=(screen php jq zsh git gh redis-server php-predis php-pear php-common php-cli php-json php-xml php-zip php-curl php-bz2 php-bcmath php-calendar php-ctype php-dba php-dom php-exif php-ffi php-fileinfo php-ftp php-gd php-gmp php-iconv php-igbinary php-imagick php-imap php-intl php-ldap php-mbstring php-mysqli php-opcache  php-pdo php-pgsql php-phar php-posix php-readline php-redis php-shmop php-simplexml php-soap php-sockets  php-sqlite3 php-sysvmsg php-sysvsem php-sysvshm php-tokenizer php-xml php-xmlreader php-xmlwriter php-xsl php-zip php-sqlite3 php-all-dev)
 USE_PLUGINS="plugins=(aliases zsh-autosuggestions git bundler macos rake rbenv ruby)"
 ZSHRC_FILE="$HOME/.zshrc"
 
 # Update and upgrade system
 echo "Updating and upgrading system..."
 sudo apt -y update && sudo apt -y upgrade
-sudo apt -y install "$pkg"  > /dev/null 2>&1
+
+for p in "${pkg[@]}"; do
+  printf 'Installing %s...' "$p"
+  if sudo apt -y install  "$p" > /dev/null 2>&1; then
+    printf "Done\n"
+  else
+    printf "Failed\n"
+  fi
+done
 
 echo "Installing Oh My Zsh..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
