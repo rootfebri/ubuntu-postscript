@@ -10,7 +10,7 @@ sudo apt -y update && sudo apt -y upgrade
 
 for p in "${pkg[@]}"; do
   printf 'Installing %s...' "$p"
-  sudo apt-get install "$p" -y &> /dev/null
+  sudo apt-get install "$p" -y -qq
   printf "Done\n"
 done
 
