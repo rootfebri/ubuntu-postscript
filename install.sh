@@ -12,12 +12,12 @@ sudo apt -y install screen -qq
 # Install packages with error handling
 function installPkg() {
   package="$1"
-  printf "Installing %s..." "$package"
+  echo "Installing $package..."
   if sudo apt -y install "$package" > /dev/null 2>&1; then
-    printf "%s installed successfully." "$package"
+    echo "$package installed successfully."
     return 0
   else
-    printf "Failed to install %s." "$package"
+    printf "Failed to install $package."
     return 1
   fi
 }
