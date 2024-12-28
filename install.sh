@@ -13,7 +13,7 @@ sudo apt -y install screen -qq
 function installPkg() {
   package="$1"
   echo "Installing $package..."
-  if sudo apt -y install "$package" > /dev/null 2>&1; then
+  if sudo apt -y install "$package" -qq; then
     echo "$package installed successfully."
     return 0
   else
