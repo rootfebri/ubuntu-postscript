@@ -10,21 +10,9 @@ sudo apt -y update && sudo apt -y upgrade
 sudo apt -y install screen -qq
 
 # Install packages with error handling
-function installPkg() {
-  package="$1"
-  echo "Installing $package..."
-  if sudo apt -y install "$package" -qq; then
-    echo "$package installed successfully."
-    return 0
-  else
-    printf "Failed to install $package."
-    return 1
-  fi
-}
-
-for p in "${pkg[@]}"; do
-  installPkg "$p"
-done
+echo "Installing all packages..."
+sudo apt -y install "${pkg[@]}"
+echo "All packages installed successfully."
 
 echo "Installing Oh My Zsh..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
